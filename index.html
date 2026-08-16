@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>เดอ วารี — สั่งอาหารออนไลน์</title>
+<title>เรือนรส — สั่งอาหารออนไลน์</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Noto+Serif+Thai:wght@400;600;700&family=Noto+Sans+Thai:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -124,24 +124,25 @@
     background:linear-gradient(180deg, #ffffff, var(--panel-2));
     border:1px solid var(--hair);
     border-radius:14px;
-    padding:22px 18px 18px;
+    overflow:hidden;
     position:relative;
     transition:.25s;
-    display:flex; flex-direction:column; gap:10px;
+    display:flex; flex-direction:column;
     box-shadow:0 1px 0 rgba(185,144,44,.05);
   }
   .card:hover{ transform:translateY(-3px); border-color:var(--cat-color); box-shadow:0 16px 30px -20px color-mix(in srgb, var(--cat-color) 70%, transparent); }
 
   .card .icon{
-    width:58px; height:58px; border-radius:50%;
+    width:100%; height:180px;
     display:flex; align-items:center; justify-content:center;
-    background:radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--cat-color) 16%, transparent), transparent 70%),
+    background:radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--cat-color) 14%, transparent), transparent 70%),
                #fff;
-    border:1px solid color-mix(in srgb, var(--cat-color) 45%, var(--hair));
+    border-bottom:1px solid var(--hair);
     overflow:hidden;
   }
-  .card .icon svg{ width:30px; height:30px; }
+  .card .icon svg{ width:64px; height:64px; }
   .card .icon img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .card .body{ padding:16px 18px 18px; display:flex; flex-direction:column; gap:10px; flex:1; }
   .card h3{ font-size:16.5px; font-weight:600; line-height:1.35; }
   .card p.desc{ font-size:12.5px; color:var(--muted); line-height:1.5; flex:1; }
   .card .row{ display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
@@ -234,7 +235,8 @@
 
   @media (max-width:520px){
     .grid{ grid-template-columns:repeat(auto-fill,minmax(155px,1fr)); gap:12px; }
-    .card{ padding:16px 13px 14px; }
+    .card .icon{ height:130px; }
+    .card .body{ padding:13px 13px 14px; }
     .card h3{ font-size:14px; }
     .card .price{ font-size:19px; }
   }
@@ -243,8 +245,8 @@
 <body>
 
 <header class="hero">
-  <div class="eyebrow">De Warie Dining</div>
-  <h1 class="serif">เดอ <span>วารี</span></h1>
+  <div class="eyebrow">Ruen Ros Dining</div>
+  <h1 class="serif">เรือน<span>รส</span></h1>
   <p class="tag">สั่งอาหารออนไลน์ · เครื่องดื่ม · ขนมไทย · ซีฟู้ดย่าง · พาสต้า</p>
 </header>
 
@@ -271,7 +273,7 @@
 
 <div class="toast" id="toast"></div>
 
-<footer>เดอ วารี · เปิดบริการทุกวัน 11:00 – 23:00 น.</footer>
+<footer>เรือนรส · เปิดบริการทุกวัน 11:00 – 23:00 น.</footer>
 
 <script>
 /* ---------- line-art icon set (gold on white, currentColor stroke) ---------- */
@@ -463,18 +465,20 @@ function cardHTML(it, color){
   return `
   <div class="card" style="--cat-color:${color}">
     <div class="icon">${iconSVG(it.icon, color)}</div>
-    <h3>${it.th}<br><span style="font-size:11px;color:var(--muted);font-weight:400;">${it.name}</span></h3>
-    <p class="desc">${it.desc}</p>
-    <div class="row">
-      <div class="price">${it.price}<small>บาท</small></div>
-      ${inCart
-        ? `<div class="stepper" data-id="${it.id}">
-             <button data-step="-1">−</button>
-             <span>${inCart.qty}</span>
-             <button data-step="1">+</button>
-           </div>`
-        : `<button class="addbtn" data-add="${it.id}" data-cat="${findCat(it.id)}">+</button>`
-      }
+    <div class="body">
+      <h3>${it.th}<br><span style="font-size:11px;color:var(--muted);font-weight:400;">${it.name}</span></h3>
+      <p class="desc">${it.desc}</p>
+      <div class="row">
+        <div class="price">${it.price}<small>บาท</small></div>
+        ${inCart
+          ? `<div class="stepper" data-id="${it.id}">
+               <button data-step="-1">−</button>
+               <span>${inCart.qty}</span>
+               <button data-step="1">+</button>
+             </div>`
+          : `<button class="addbtn" data-add="${it.id}" data-cat="${findCat(it.id)}">+</button>`
+        }
+      </div>
     </div>
   </div>`;
 }
