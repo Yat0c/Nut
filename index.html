@@ -138,8 +138,10 @@
     background:radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--cat-color) 16%, transparent), transparent 70%),
                #fff;
     border:1px solid color-mix(in srgb, var(--cat-color) 45%, var(--hair));
+    overflow:hidden;
   }
   .card .icon svg{ width:30px; height:30px; }
+  .card .icon img{ width:100%; height:100%; object-fit:cover; display:block; }
   .card h3{ font-size:16.5px; font-weight:600; line-height:1.35; }
   .card p.desc{ font-size:12.5px; color:var(--muted); line-height:1.5; flex:1; }
   .card .row{ display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
@@ -202,8 +204,9 @@
   .cart-items{ flex:1; overflow-y:auto; padding:14px 20px; display:flex; flex-direction:column; gap:14px; }
   .cart-empty{ text-align:center; color:var(--muted); font-size:13.5px; margin-top:60px; }
   .cart-item{ display:flex; gap:12px; align-items:center; border-bottom:1px dashed var(--hair); padding-bottom:12px; }
-  .cart-item .ci-icon{ width:42px; height:42px; border-radius:50%; background:var(--panel-2); display:flex; align-items:center; justify-content:center; border:1px solid var(--hair); flex-shrink:0; }
+  .cart-item .ci-icon{ width:42px; height:42px; border-radius:50%; background:var(--panel-2); display:flex; align-items:center; justify-content:center; border:1px solid var(--hair); flex-shrink:0; overflow:hidden; }
   .cart-item .ci-icon svg{ width:22px; height:22px; }
+  .cart-item .ci-icon img{ width:100%; height:100%; object-fit:cover; display:block; }
   .cart-item .ci-info{ flex:1; }
   .cart-item .ci-info h4{ font-size:13.5px; font-weight:500; }
   .cart-item .ci-info .ci-price{ font-size:12px; color:var(--muted); margin-top:2px; }
@@ -297,19 +300,31 @@ const ICONS = {
   carbonara: `<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 24a15 15 0 0 0 30 0z"/><path d="M9 24h30"/><path d="M15 24c1-6 4-11 4-14M22 24c1-7 2-12 1-15M27 24c0-7 2-11 3-14M33 24c1-6 3-9 3-13"/><circle cx="24" cy="16" r="4"/></svg>`,
 };
 
+/* ---------- real photos (place these files in an /images folder next to this html) ---------- */
+const IMAGES = {
+  gintonic: { src:"images/gintonic.jpg", pos:"72% 55%" },
+  mojito:   { src:"images/mojito.jpg",   pos:"75% 55%" },
+  icedtea:  { src:"images/icedtea.jpg",  pos:"75% 55%" },
+  chayen:   { src:"images/chayen.jpg",   pos:"68% 55%" },
+  coffee:   { src:"images/coffee.jpg",   pos:"78% 60%" },
+  water:    { src:"images/water.jpg",    pos:"75% 60%" },
+  espresso: { src:"images/espresso.jpg", pos:"75% 65%" },
+  whisky:   { src:"images/whisky.jpg",   pos:"78% 60%" },
+};
+
 const DATA = {
   drinks: {
     label: "เครื่องดื่ม", color: "var(--drinks)",
     desc: "ค็อกเทลคลาสสิก ชา กาแฟ และเครื่องดื่มไม่มีแอลกอฮอล์",
     items: [
-      { id:"d1", icon:"cocktail", name:"Gin & Tonic", th:"จิน แอนด์ โทนิค", desc:"จินคลาสสิกผสมโทนิคเย็นซ่า มะนาวและโรสแมรี่", price:150 },
-      { id:"d2", icon:"mojito", name:"Mojito", th:"โมฮิโต้", desc:"รัมผสมใบมินต์สด มะนาว และโซดาซ่า", price:165 },
-      { id:"d3", icon:"icedtea", name:"Iced Lemon Tea", th:"ชามะนาวเย็น", desc:"ชาเย็นชื่นใจ กลิ่นมะนาวสดชื่น", price:55 },
-      { id:"d4", icon:"icedtea", name:"Cha Yen", th:"ชาเย็นไทย", desc:"ชาไทยสไตล์ต้นตำรับ หวานมันกลมกล่อม", price:55 },
-      { id:"d5", icon:"coffee", name:"Premium Black Coffee", th:"กาแฟดำพรีเมียม", desc:"กาแฟคั่วกลางกลิ่นหอม รสชาติเข้มข้น", price:80 },
-      { id:"d6", icon:"water", name:"Still Water", th:"น้ำเปล่า", desc:"น้ำดื่มบริสุทธิ์ เย็นสดชื่น", price:20 },
-      { id:"d7", icon:"coffee", name:"Espresso", th:"เอสเพรสโซ่", desc:"กาแฟเข้มข้นสกัดสดใหม่ทุกแก้ว", price:60 },
-      { id:"d8", icon:"whisky", name:"Johnnie Walker Black Label", th:"จอห์นนี่ วอล์กเกอร์ แบล็คเลเบล", desc:"วิสกี้รสชาติกลมกล่อม กลิ่นหอมละมุน", price:220 },
+      { id:"d1", icon:"img:gintonic", name:"Gin & Tonic", th:"จิน แอนด์ โทนิค", desc:"จินคลาสสิกผสมโทนิคเย็นซ่า มะนาวและโรสแมรี่", price:150 },
+      { id:"d2", icon:"img:mojito", name:"Mojito", th:"โมฮิโต้", desc:"รัมผสมใบมินต์สด มะนาว และโซดาซ่า", price:165 },
+      { id:"d3", icon:"img:icedtea", name:"Iced Lemon Tea", th:"ชามะนาวเย็น", desc:"ชาเย็นชื่นใจ กลิ่นมะนาวสดชื่น", price:55 },
+      { id:"d4", icon:"img:chayen", name:"Cha Yen", th:"ชาเย็นไทย", desc:"ชาไทยสไตล์ต้นตำรับ หวานมันกลมกล่อม", price:55 },
+      { id:"d5", icon:"img:coffee", name:"Premium Black Coffee", th:"กาแฟดำพรีเมียม", desc:"กาแฟคั่วกลางกลิ่นหอม รสชาติเข้มข้น", price:80 },
+      { id:"d6", icon:"img:water", name:"Still Water", th:"น้ำเปล่า", desc:"น้ำดื่มบริสุทธิ์ เย็นสดชื่น", price:20 },
+      { id:"d7", icon:"img:espresso", name:"Espresso", th:"เอสเพรสโซ่", desc:"กาแฟเข้มข้นสกัดสดใหม่ทุกแก้ว", price:60 },
+      { id:"d8", icon:"img:whisky", name:"Johnnie Walker Black Label", th:"จอห์นนี่ วอล์กเกอร์ แบล็คเลเบล", desc:"วิสกี้รสชาติกลมกล่อม กลิ่นหอมละมุน", price:220 },
     ]
   },
   dessert: {
@@ -359,7 +374,14 @@ const tabsEl = document.getElementById('tabs');
 const mainEl = document.getElementById('main');
 
 function baht(n){ return n.toLocaleString('th-TH') + ' บาท'; }
-function iconSVG(key, color){ return `<span style="color:${color}">${ICONS[key] || ICONS.pastabowl}</span>`; }
+function iconSVG(key, color){
+  if(key && key.startsWith('img:')){
+    const imgKey = key.slice(4);
+    const img = IMAGES[imgKey];
+    if(img) return `<img src="${img.src}" alt="" style="object-position:${img.pos}">`;
+  }
+  return `<span style="color:${color}">${ICONS[key] || ICONS.pastabowl}</span>`;
+}
 
 function buildTabs(){
   tabsEl.innerHTML = Object.keys(DATA).map(key=>{
